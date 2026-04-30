@@ -1,0 +1,17 @@
+appId: com.wdiodemoapp
+---
+
+# - swipe:
+#     from: "Swipe horizontal"
+#     direction: UP
+- repeat:
+    times: 3
+    while:
+      notVisible: "You found me!!!"
+    commands:
+      - swipe:
+          start: 50%, 85%    # ← tepat di atas bottom nav bar, pasti kosong
+          end: 50%, 20%      # ← swipe jauh ke atas
+          duration: 800
+- waitForAnimationToEnd
+

@@ -1,0 +1,28 @@
+appId: com.wdiodemoapp
+env:
+  FORM_INPUT_TEXT: "Hello Maestro"
+  DROPDOWN_VALUE: "webdriver.io is awesome"
+---
+- runFlow: ../pages/home/launch_app.yml
+- assertVisible: "home"
+
+- runFlow: ../pages/forms/navigate_to_forms.yml
+- assertVisible: "Forms-screen"
+
+- runFlow:
+    file: ../pages/forms/fill_text_input.yml
+    env:
+      INPUT_TEXT: "${FORM_INPUT_TEXT}"
+- assertVisible: "${FORM_INPUT_TEXT}"
+
+- runFlow: ../pages/forms/toggle_switch.yml
+- assertVisible: "Click to turn the switch OFF"
+
+- runFlow:
+    file: ../pages/forms/select_dropdown.yml
+    env:
+      DROPDOWN_VALUE: "${DROPDOWN_VALUE}"
+
+- runFlow: ../pages/forms/tap_active_button.yml
+- assertVisible: "This button is active"
+- tapOn: "OK"

@@ -1,0 +1,6 @@
+appId: com.wdiodemoapp
+---
+- swipe:
+    direction: RIGHT
+    duration: 400
+- waitForAnimationToEnd

@@ -1,0 +1,43 @@
+appId: com.wdiodemoapp
+env:
+  VALID_EMAIL: "test@webdriver.io"
+  VALID_PASSWORD: "Test1234!"
+  INVALID_EMAIL: "wrongemail"
+  INVALID_PASSWORD: "short"
+---
+- runFlow: ../pages/home/launch_app.yml
+- assertVisible: "home"
+
+- runFlow: ../pages/login/navigate_to_login.yml
+- assertVisible: "Login / Sign up Form"
+
+- runFlow: ../pages/login/switch_to_login_tab.yml
+- assertVisible: "LOGIN"
+
+- runFlow:
+    file: ../pages/login/fill_login_form.yml
+    env:
+      EMAIL: "${INVALID_EMAIL}"
+      PASSWORD: "${INVALID_PASSWORD}"
+- assertVisible: "Please enter a valid email address"
+
+- runFlow: ../pages/login/clear_login_form.yml
+
+- runFlow:
+    file: ../pages/login/fill_login_form.yml
+    env:
+      EMAIL: "${VALID_EMAIL}"
+      PASSWORD: "${VALID_PASSWORD}"
+- assertVisible: "Success"
+- assertVisible: "You are logged in!"
+- tapOn: "OK"
+
+# --- SIGN UP TEST CASE ---
+- runFlow: ../pages/login/navigate_to_login.yml
+- runFlow: ../pages/login/switch_to_signup_tab.yml
+- assertVisible: "SIGN UP"
+
+- runFlow: ../pages/login/fill_signup_form.yml
+- assertVisible: "Signed Up!"
+- assertVisible: "You successfully signed up!"
+- tapOn: "OK"

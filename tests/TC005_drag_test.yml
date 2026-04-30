@@ -1,0 +1,56 @@
+appId: com.wdiodemoapp
+---
+- runFlow: ../pages/home/launch_app.yml
+- assertVisible: 'home'
+
+- runFlow: ../pages/drag/navigate_to_drag.yml
+- assertVisible: 'Drag and Drop'
+- swipe:
+    start: '50%, 85%'
+    end: '30%, 27%'
+    duration: 1500
+- waitForAnimationToEnd
+- swipe:
+    start: '58%, 78%'
+    end: '50%, 27%'
+    duration: 1500
+- waitForAnimationToEnd
+- swipe:
+    start: '42%, 78%'
+    end: '70%, 27%'
+    duration: 1500
+- waitForAnimationToEnd
+- swipe:
+    start: '11%, 78%'
+    end: '30%, 35%'
+    duration: 1500
+- waitForAnimationToEnd
+- swipe:
+    start: '34%, 85%'
+    end: '50%, 35%'
+    duration: 1500
+- waitForAnimationToEnd
+- swipe:
+    start: '89%, 78%'
+    end: '70%, 35%'
+    duration: 1500
+- waitForAnimationToEnd
+- swipe:
+    start: '66%, 85%'
+    end: '30%, 44%'
+    duration: 1500
+- waitForAnimationToEnd
+- swipe:
+    start: '73%, 78%'
+    end: '50%, 44%'
+    duration: 1500
+- waitForAnimationToEnd
+- swipe:
+    start: '27%, 78%'
+    end: '70%, 44%'
+    duration: 1500
+- waitForAnimationToEnd
+
+- assertVisible: 'Congratulations'
+- tapOn: 'button-Retry'
+    optional: true

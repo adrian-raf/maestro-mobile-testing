@@ -1,0 +1,17 @@
+appId: com.wdiodemoapp
+---
+
+- repeat:
+    times: 5
+    while:
+      notVisible: "Swipe horizontal"
+    commands:
+      - swipe:
+          start: 50%, 20%     # mulai dari 80% bawah layar
+          end: 50%, 80%       # geser ke 20% atas layar
+          duration: 400
+- waitForAnimationToEnd
+
+- waitForAnimationToEnd
+
+

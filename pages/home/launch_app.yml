@@ -1,0 +1,6 @@
+appId: com.wdiodemoapp
+---
+- launchApp:
+    clearState: true
+- waitForAnimationToEnd:
+    timeout: 10000

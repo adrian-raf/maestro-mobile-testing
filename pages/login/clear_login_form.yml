@@ -1,0 +1,6 @@
+appId: com.wdiodemoapp
+---
+- tapOn: "Email"
+- eraseText 
+- tapOn: "Password"
+- eraseText 

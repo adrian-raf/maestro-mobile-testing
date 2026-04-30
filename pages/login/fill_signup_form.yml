@@ -1,0 +1,14 @@
+appId: com.wdiodemoapp
+---
+- tapOn: "Email"
+- eraseText
+- inputText: "newuser123@webdriver.io"
+- tapOn: "Password"
+- eraseText
+- inputText: "NewPass1234!"
+- tapOn: "Confirm password"
+- eraseText
+- inputText: "NewPass1234!"
+- hideKeyboard
+- tapOn: "button-SIGN UP"
+- waitForAnimationToEnd

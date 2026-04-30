@@ -1,0 +1,7 @@
+appId: com.wdiodemoapp
+---
+- tapOn:
+    id: "icon_container"
+- tapOn:
+    text: ${DROPDOWN_VALUE}
+- waitForAnimationToEnd

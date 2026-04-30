@@ -1,0 +1,4 @@
+appId: com.wdiodemoapp
+---
+- tapOn: "button-Active"
+- waitForAnimationToEnd

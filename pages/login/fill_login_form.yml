@@ -1,0 +1,11 @@
+appId: com.wdiodemoapp
+---
+- tapOn: 'Email'
+- eraseText
+- inputText: ${EMAIL}
+- tapOn: 'Password'
+- eraseText
+- inputText: ${PASSWORD}
+- hideKeyboard
+- tapOn: 'button-LOGIN'
+- waitForAnimationToEnd

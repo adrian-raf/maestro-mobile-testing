@@ -1,0 +1,21 @@
+appId: com.wdiodemoapp
+---
+# ── [1/5] Smoke : Home Screen ────────────────────────────────
+- runFlow:
+    file: tests/TC001_home_test.yml
+
+# ── [2/5] Functional : Login Screen ─────────────────────────
+- runFlow:
+    file: tests/TC002_login_test.yml
+
+# ── [3/5] Functional : Forms Screen ─────────────────────────
+- runFlow:
+    file: tests/TC003_forms_test.yml
+
+# ── [4/5] Functional : Swipe Gestures ───────────────────────
+- runFlow:
+    file: tests/TC004_swipe_test.yml
+
+# ── [5/5] Functional : Drag & Drop Puzzle ───────────────────
+- runFlow:
+    file: tests/TC005_drag_test.yml

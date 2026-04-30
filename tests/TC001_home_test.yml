@@ -1,0 +1,4 @@
+appId: com.wdiodemoapp
+---
+- runFlow: ../pages/home/launch_app.yml
+- assertVisible: "home"

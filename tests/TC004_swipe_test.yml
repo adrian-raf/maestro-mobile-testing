@@ -1,0 +1,14 @@
+appId: com.wdiodemoapp
+---
+- runFlow: ../pages/home/launch_app.yml
+- assertVisible: "home"
+
+- runFlow: ../pages/swipe/navigate_to_swipe.yml
+- assertVisible: "Swipe horizontal"
+
+- runFlow: ../pages/swipe/swipe_carousel_left.yml
+- runFlow: ../pages/swipe/swipe_carousel_right.yml
+- runFlow: ../pages/swipe/scroll_page_down.yml
+- assertVisible: "You found me!!!"
+
+- runFlow: ../pages/swipe/scroll_page_up.yml

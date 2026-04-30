@@ -1,0 +1,7 @@
+appId: com.wdiodemoapp
+---
+- swipe:
+    start: "${START_COORDS}"
+    end: "${END_COORDS}"
+    duration: 1500
+- waitForAnimationToEnd

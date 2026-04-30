@@ -1,0 +1,17 @@
+# =============================================================
+# CONFIG - Global Constants
+# Cara pakai: env: block di setiap test file
+# =============================================================
+# NOTE: File ini bukan flow yang bisa di-runFlow
+# Salin nilai env ini ke setiap test file yang membutuhkan
+
+# ANDROID_APP_ID: "com.wdiodemoapp"
+# IOS_APP_ID: "org.reactjs.native.example.wdiodemoapp"
+# VALID_EMAIL: "test@webdriver.io"
+# VALID_PASSWORD: "Test1234!"
+# INVALID_EMAIL: "wrong@email.com"
+# INVALID_PASSWORD: "wrongpass"
+# BASE_TIMEOUT: "5000"
+# LONG_TIMEOUT: "10000"
+# SWIPE_SPEED: "40"
+# FORM_INPUT_TEXT: "Hello Maestro"

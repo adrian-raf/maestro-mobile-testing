@@ -1,0 +1,5 @@
+appId: com.wdiodemoapp
+---
+- tapOn: "Type something"
+- eraseText
+- inputText: ${INPUT_TEXT}
