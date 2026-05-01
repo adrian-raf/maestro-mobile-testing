@@ -92,7 +92,7 @@ jobs:
         with:
           api-level: 36 # Android 16
           target: google_apis_playstore # Latest Google Play Services
-          arch: x86_64 # 64-bit architecture for better performance
+          arch: arm-v8a # 64-bit architecture for better performance
           profile: pixel_4a # Pixel 4a device profile
           ram-size: 4096 # RAM allocation for emulator
           disk-size: 4096 # Disk space for emulator
