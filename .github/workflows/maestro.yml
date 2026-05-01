@@ -93,7 +93,7 @@ jobs:
           api-level: 36 # Android 16
           target: google_apis_playstore # Latest Google Play Services
           arch: x86_64 # 64-bit architecture for better performance
-          profile: Pixel_6 # Pixel 6 device profile
+          profile: pixel_4a # Pixel 4a device profile
           ram-size: 4096 # RAM allocation for emulator
           disk-size: 4096 # Disk space for emulator
           force-avd-creation: true # Force creation of new AVD (ensures latest)
