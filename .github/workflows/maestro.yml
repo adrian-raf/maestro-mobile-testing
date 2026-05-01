@@ -9,7 +9,7 @@ on:
 jobs:
   maestro-android-test:
     name: Run Maestro Tests on Android Emulator
-    runs-on: macos-latest
+    runs-on: macos-13
     timeout-minutes: 15
 
     steps:
@@ -92,7 +92,7 @@ jobs:
         with:
           api-level: 36 # Android 16
           target: google_apis_playstore # Latest Google Play Services
-          arch: arm64-v8a # 64-bit architecture for better performance
+          arch: x86_64 # 64-bit architecture for better performance
           profile: pixel_4a # Pixel 4a device profile
           ram-size: 4096 # RAM allocation for emulator
           disk-size: 4096 # Disk space for emulator
