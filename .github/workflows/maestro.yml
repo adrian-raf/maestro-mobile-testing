@@ -1,0 +1,149 @@
+name: Maestro Mobile Test Automation
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  maestro-android-test:
+    name: Run Maestro Tests on Android Emulator
+    runs-on: macos-latest
+    timeout-minutes: 15
+
+    steps:
+      # 1. Checkout repository
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # 2. Setup Java (Required for Android SDK and Maestro)
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: gradle
+
+      # 3. Setup Android SDK
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      # 4. Configure Gradle Cache
+      - name: Configure Gradle Cache
+        run: |
+          mkdir -p ~/.gradle
+          echo "org.gradle.jvmargs=-Xmx4096m" >> ~/.gradle/gradle.properties
+          echo "org.gradle.daemon=true" >> ~/.gradle/gradle.properties
+
+      # 5. Cache Maestro
+      - name: Cache Maestro
+        uses: actions/cache@v3
+        with:
+          path: ~/.maestro
+          key: ${{ runner.os }}-maestro-${{ hashFiles('.github/workflows/maestro.yml') }}
+          restore-keys: |
+            ${{ runner.os }}-maestro-
+
+      # 6. Install Maestro CLI
+      - name: Install Maestro
+        run: |
+          curl -Ls "https://get.maestro.mobile.dev" | bash
+          echo "$HOME/.maestro/bin" >> $GITHUB_PATH
+          maestro --version
+
+      # 7. Verify Test Configuration
+      - name: Verify Test Configuration
+        run: |
+          echo "========================================"
+          echo "Project Structure Check"
+          echo "========================================"
+          ls -la tests/
+          echo ""
+          echo "Test files found:"
+          find tests -name "*.yml" -type f
+          echo ""
+          echo "Environment Info:"
+          maestro --version
+          java -version
+
+      # 8. Download APK from GitHub Releases
+      - name: Download WebdriverIO Demo App APK
+        run: |
+          echo "Downloading WebdriverIO Native Demo App..."
+          mkdir -p ~/.android-test-apps
+          cd ~/.android-test-apps
+
+          # Download latest release APK
+          curl -L -o wdio-native-app.apk \
+            "https://github.com/webdriverio/native-demo-app/releases/download/v2.2.0/wdio-native-app-v2.2.0.apk"
+
+          if [ -f wdio-native-app.apk ]; then
+            echo "APK downloaded successfully"
+            ls -lh wdio-native-app.apk
+          else
+            echo "Failed to download APK"
+            exit 1
+          fi
+
+      # 9. Run Maestro Tests on Latest Android Emulator
+      - name: Run Maestro Tests
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 34 # Android 14 (latest stable)
+          target: google_apis_playstore # Latest Google Play Services
+          arch: x86_64 # 64-bit architecture for better performance
+          profile: Pixel_6 # Pixel 6 device profile
+          ram-size: 2048 # RAM allocation for emulator
+          disk-size: 2048 # Disk space for emulator
+          force-avd-creation: true # Force creation of new AVD (ensures latest)
+          emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio
+          disable-animations: true # Disable animations to speed up tests
+          script: |
+            echo "========================================"
+            echo "Starting Maestro Test Suite"
+            echo "========================================"
+
+            # Install APK on emulator
+            echo "Installing application on emulator..."
+            adb install -r ~/.android-test-apps/wdio-native-app.apk
+
+            # Wait for app installation to complete
+            sleep 5
+
+            echo ""
+            echo "Device Info:"
+            adb devices
+
+            echo ""
+            echo "Installed packages:"
+            adb shell pm list packages | grep wdio
+
+            echo ""
+            echo "Running all tests from run_all_tests.yml"
+            echo ""
+            maestro test run_all_tests.yml --verbose
+
+      # 10. Upload Test Results (on failure)
+      - name: Upload Test Results
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: maestro-test-results
+          path: |
+            **/*.log
+            **/*.xml
+            **/screenshots/
+          retention-days: 30
+          if-no-files-found: ignore
+
+      # 11. Report Test Status
+      - name: Report Test Status
+        if: always()
+        run: |
+          echo "========================================" 
+          echo "Test execution completed"
+          echo "Check artifacts for detailed results if available"
+          echo "========================================"
