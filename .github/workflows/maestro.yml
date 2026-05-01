@@ -50,7 +50,7 @@ jobs:
       - name: Install Maestro
         run: |
           curl -Ls "https://get.maestro.mobile.dev" | bash
-          echo "$HOME/.maestro/bin" >> $GITHUB_PATH
+          sudo mv ~/.maestro/bin/maestro /usr/local/bin/maestro
           maestro --version
 
       # 7. Verify Test Configuration
